@@ -1,0 +1,26 @@
+<div class="text-center">
+    <div class="flex items-center justify-center w-full">
+      <label htmlFor="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+        <div class="flex flex-col items-center justify-center p-[3.5rem]">
+          <div class="flex justify-center items-center w-12 h-12 mb-3 rounded-full bg-gray-100">
+            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+            </svg>
+          </div>
+          <p class="mb-2 text-sm text-gray-500">
+            <span class="font-semibold">Clique para fazer upload</span> ou arraste e solte
+          </p>
+          <p class="text-xs text-gray-500">PDF ou PNG (MAX. 10MB)</p>
+        </div>
+        <input id="dropzone-file" type="file" class="hidden" (change)="handleFileChange($event)" accept=".pdf,.png" />
+      </label>
+    </div>
+    <div *ngIf="selectedFiles.length != 0">
+      <div class="mt-4">
+        <p class="text-sm text-gray-500">Arquivo selecionado: {{selectedFiles[0].name}}</p>
+        <button class="mt-2 px-4 py-2 bg-gray-800 text-white rounded hover:bg-blue-900 transition-colors">
+          Enviar arquivo
+        </button>
+      </div>
+    </div>
+</div>
