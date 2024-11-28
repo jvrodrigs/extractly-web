@@ -6,17 +6,21 @@
         class="h-full w-auto object-contain"
       />
     </div>
-    <svg class="w-6 h-6 cursor-pointer"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-      />
-    </svg>
+    <div class="relative group">
+      <svg class="w-6 h-6 text-green-500 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" *ngIf="healthCheckMessage == 200; else errorHealthCheck">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+  
+      <ng-template #errorHealthCheck>
+        <svg class="w-6 h-6 text-red-500 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </ng-template>
+
+      <div class="absolute hidden group-hover:block right-0 mt-2 py-2 px-3 bg-gray-700 rounded-lg shadow-xl">
+        <p class="text-sm text-white whitespace-nowrap">
+          {{healthCheckMessage == 200 ? 'API está OK' : 'API não está OK'}}
+        </p>
+      </div>
+    </div>
 </header>

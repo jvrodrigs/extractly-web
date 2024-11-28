@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { IDefaultResponse } from 'src/app/domain/defaultResponse.model';
+import { AwsLambdaService } from 'src/app/shared/services/aws-lambda/aws-lambda.service';
 
 @Component({
   selector: 'app-upload',
@@ -9,8 +11,14 @@ export class UploadComponent {
 
   selectedFiles: File[] = [];
   maxFileSizeInBytes = 10 * 1024 * 1024; // 10 MB em bytes
+  responseApiRest!: IDefaultResponse | null;
 
+  constructor(private apiRest: AwsLambdaService) {}
+  
   handleFileChange(event: any) {
+    this.responseApiRest = null;
+    this.selectedFiles = [];
+    
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files) {
       const files: File[] = Array.from(inputElement.files);
@@ -21,8 +29,6 @@ export class UploadComponent {
         this.addFiles(validFiles);
       }
     }
-
-    console.log(this.selectedFiles);
   }
 
   addFiles(files: File[]): void {
@@ -35,5 +41,18 @@ export class UploadComponent {
       return false;
     }
     return true;
+  }
+
+  handlerSendFile(): void {
+    if (this.selectedFiles.length == 1) {
+      this.apiRest.uploadFile(this.selectedFiles[0]).subscribe({
+        next: (response) => { 
+          this.responseApiRest = response;
+        },
+        error: (error) => {
+          console.error(`Error ao realizar o upload: ${error}`)
+        }
+      })
+    }
   }
 }

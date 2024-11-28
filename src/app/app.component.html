@@ -1,6 +1,11 @@
 <div class="min-h-screen flex flex-col">
-  <app-header></app-header>
-  <main class="flex-grow flex justify-center p-4 mt-[4rem]">
-    <app-upload></app-upload>
+  <app-header [healthCheckMessage]="healthCheckRest?.status"></app-header>
+  <main class="flex-grow flex flex-col items-center justify-center p-4 mt-[4rem]">
+    <app-upload *ngIf="healthCheckRest?.status == 200; else healthCheckIsError"></app-upload>
+    <ng-template #healthCheckIsError>
+      <div class="mt-4 p-4 border rounded-md bg-red-500 text-white">
+        <p>Erro ao tentar se comunicar com a API. Por favor, tente novamente mais tarde.</p>
+      </div>
+    </ng-template>
   </main>
 </div>
