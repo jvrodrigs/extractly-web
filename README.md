@@ -69,3 +69,19 @@ Certifique-se de que os seguintes requisitos estão instalados no seu ambiente:
    Certifique-se de que a API backend está rodando e acessível na URL configurada no `environment.ts`.
 
 ---
+
+# Prints da Aplicação
+- Upload de um PNG do meu extrato!
+
+  ![Exemplo PNG extrato](https://github.com/user-attachments/assets/e94ef427-7ce4-4bdb-b194-94fa026d3ef6)
+
+- Resposta da API
+
+  ![Despesas observadas](https://github.com/user-attachments/assets/04d386f9-958c-4010-8b61-86d8f82c80dd)
+  
+  ![Analise da OpenAI](https://github.com/user-attachments/assets/367d63a4-c4cc-43b4-b12d-7a032da9e5d4)
+
+  
+  
+  
+  
