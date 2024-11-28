@@ -27,17 +27,14 @@
 
 <div class="text-center">
   <div *ngIf="responseApiRest != null">
-    <div class="mt-4 p-4 border rounded-md bg-green-500 text-white" *ngIf="responseApiRest.status == 200; else errorInUploadFile">
+    <!-- <div class="mt-4 p-4 border rounded-md bg-green-500 text-white" *ngIf="responseApiRest.status == 200; else errorInUploadFile">
       <p>{{responseApiRest.status}}</p>
+    </div> -->
+    <div class="mt-4 p-4 border rounded-md bg-red-500 text-white" *ngIf="responseApiRest.status != 200">
+      <p>{{responseApiRest | json}}</p>
     </div>
 
-    <ng-template #errorInUploadFile>
-      <div class="mt-4 p-4 border rounded-md bg-red-500 text-white">
-        <p>{{responseApiRest | json}}</p>
-      </div>
-    </ng-template>
-
-    <div *ngIf="responseGenericApiRest != null">
+    <div *ngIf="responseGenericApiRest != null && responseApiRest.status == 200">
       <div class="w-full max-w-4xl mx-auto mt-8">
         <h2 class="text-2xl font-bold mb-4">Resultados da Análise</h2>
         
@@ -56,7 +53,7 @@
                   <tr *ngFor="let transaction of responseGenericApiRest.body.message.transactions">
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{transaction.date}}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{transaction.description}}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{transaction.amount | currency}}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{objectKeys(transaction).includes('amount') ? (transaction.amount | currency) : (transaction.balance | currency)}}</td>
                   </tr>
               </tbody>
             </table>

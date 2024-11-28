@@ -54,6 +54,7 @@ export class UploadComponent {
       this.apiRest.uploadFile(this.selectedFiles[0]).subscribe({
         next: (response) => { 
           this.responseApiRest = response;
+          this.responseGenericApiRest = response;
         },
         error: (error) => {
           console.error(`Error ao realizar o upload: ${error}`)
@@ -66,10 +67,14 @@ export class UploadComponent {
 
   handlerSendFileFake(): void {
     if (this.selectedFiles.length == 1) {
+      console.log(this.responseGenericApiRest);
       this.apiRest.fakeRequest().subscribe({
         next: (response) => { 
+          
           this.responseApiRest = response;
           this.responseGenericApiRest = response;
+
+          console.log(this.responseGenericApiRest);
         },
         error: (error) => {
           console.error(`Error ao realizar o upload: ${error}`)
@@ -90,5 +95,9 @@ export class UploadComponent {
 
   isMessageString(message: string | object): message is string {
     return typeof message === 'string';
+  }
+
+  objectKeys(obj: any): string[] {
+    return Object.keys(obj).sort((a, b) => a.localeCompare(b));
   }
 }
