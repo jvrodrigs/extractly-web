@@ -4,3 +4,10 @@ export interface IDefaultResponse {
         message: string;
     }
 }
+
+export interface IDefaultGenericResponse<T> {
+    status: number;
+    body: {
+      message: string | T;
+    };
+}
