@@ -1,27 +1,87 @@
-# ExtractlyWeb
+# Projeto Angular - Frontend para Extração de Dados
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.11.
+Este projeto é uma aplicação **Angular** que serve como frontend para interagir com a API de extração de dados, disponível em [extractly-api-chalice](https://github.com/jvrodrigs/extractly-api-chalice).
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Requisitos
 
-## Code scaffolding
+Certifique-se de que os seguintes requisitos estão instalados no seu ambiente:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Node.js**: Versão 18.19.0
+- **Caso necessário use nvm, para versionar suas versões do node.js da sua máquina.**
+- **Angular CLI**: Versão 15.2.11
+- **API Backend**: [extractly-api-chalice](https://github.com/jvrodrigs/extractly-api-chalice) em execução
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Instalação
 
-## Running unit tests
+1. **Clone o Repositório**
+   
+   Clone este projeto para sua máquina local:
+   ```bash
+   git clone https://github.com/jvrodrigs/extractly-web.git
+   cd extractly-web
+   ```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+2. **Instale as Dependências**
 
-## Running end-to-end tests
+   Use o npm para instalar as dependências:
+   ```bash
+   npm install
+   ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+3. **Configure a API Backend**
 
-## Further help
+   Certifique-se de que a API backend está configurada e em execução. Siga as instruções no repositório [extractly-api-chalice](https://github.com/jvrodrigs/extractly-api-chalice) para configurá-la.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+4. **Configure as Variáveis de Ambiente**
+
+   Acesse a pasta `src/environments` e adicione a URL da API backend. Exemplo:
+   ```typescript
+   export const environment = {
+     production: false,
+     apiUrl: 'http://localhost:8000', // Altere conforme necessário
+   };
+   ```
+
+---
+
+## Executando o Projeto
+
+1. **Inicie o Servidor Angular**
+   
+   Para rodar o projeto em desenvolvimento:
+   ```bash
+   ng serve
+   ```
+
+2. **Acesse no Navegador**
+   
+   Abra o navegador e acesse:
+   ```
+   http://localhost:4200
+   ```
+
+3. **Verifique a Conexão com a API**
+
+   Certifique-se de que a API backend está rodando e acessível na URL configurada no `environment.ts`.
+
+---
+
+# Prints da Aplicação
+- Upload de um PNG do meu extrato!
+
+  ![Exemplo PNG extrato](https://github.com/user-attachments/assets/e94ef427-7ce4-4bdb-b194-94fa026d3ef6)
+
+- Resposta da API
+
+  ![Despesas observadas](https://github.com/user-attachments/assets/04d386f9-958c-4010-8b61-86d8f82c80dd)
+  
+  ![Analise da OpenAI](https://github.com/user-attachments/assets/367d63a4-c4cc-43b4-b12d-7a032da9e5d4)
+
+  
+  
+  
+  
