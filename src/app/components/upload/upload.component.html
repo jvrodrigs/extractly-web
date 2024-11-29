@@ -27,33 +27,29 @@
 
 <div class="text-center">
   <div *ngIf="responseApiRest != null">
-    <!-- <div class="mt-4 p-4 border rounded-md bg-green-500 text-white" *ngIf="responseApiRest.status == 200; else errorInUploadFile">
-      <p>{{responseApiRest.status}}</p>
-    </div> -->
+    <!-- Mostrar apenas quando der erro -->
     <div class="mt-4 p-4 border rounded-md bg-red-500 text-white" *ngIf="responseApiRest.status != 200">
       <p>{{responseApiRest | json}}</p>
     </div>
 
     <div *ngIf="responseGenericApiRest != null && responseApiRest.status == 200">
-      <div class="w-full max-w-4xl mx-auto mt-8">
+      <div class="w-full max-w-7xl mx-auto mt-8">
         <h2 class="text-2xl font-bold mb-4">Resultados da Análise</h2>
         
         <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6">
           <h3 class="text-xl font-semibold p-4 bg-gray-50">Transações</h3>
           <div class="overflow-x-auto">
-            <table class="w-full">
+            <table class="w-full" *ngIf="responseGenericApiRest.body.message.transactions.length != 0">
               <thead class="bg-gray-50">
                 <tr>
-                  <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Data</th>
-                  <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Descrição</th>
-                  <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Valor</th>
+                  <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider" *ngFor="let header of objectKeys(responseGenericApiRest.body.message.transactions[0])">{{header}}</th>
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
-                  <tr *ngFor="let transaction of responseGenericApiRest.body.message.transactions">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{transaction.date}}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{transaction.description}}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{objectKeys(transaction).includes('amount') ? (transaction.amount | currency) : (transaction.balance | currency)}}</td>
+                  <tr *ngFor="let pos of objectKeys(responseGenericApiRest.body.message.transactions)">
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" *ngFor="let transaction of objectKeys(responseGenericApiRest.body.message.transactions[pos])">
+                        {{(responseGenericApiRest.body.message.transactions[pos][transaction] | typeof) == 'number' ? (responseGenericApiRest.body.message.transactions[pos][transaction] | currency) : responseGenericApiRest.body.message.transactions[pos][transaction]}}
+                      </td>
                   </tr>
               </tbody>
             </table>

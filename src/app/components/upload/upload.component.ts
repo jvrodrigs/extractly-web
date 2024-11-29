@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { IDefaultGenericResponse, IDefaultResponse } from 'src/app/domain/defaultResponse.model';
 import { AwsLambdaService } from 'src/app/shared/services/aws-lambda/aws-lambda.service';
 
@@ -18,7 +19,8 @@ export class UploadComponent {
 
   constructor(
     private apiRest: AwsLambdaService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private spinner: NgxSpinnerService
   ) {}
   
   handleFileChange(event: any) {
@@ -51,6 +53,7 @@ export class UploadComponent {
 
   handlerSendFile(): void {
     if (this.selectedFiles.length == 1) {
+      this.spinner.show();
       this.apiRest.uploadFile(this.selectedFiles[0]).subscribe({
         next: (response) => { 
           this.responseApiRest = response;
@@ -58,6 +61,9 @@ export class UploadComponent {
         },
         error: (error) => {
           console.error(`Error ao realizar o upload: ${error}`)
+        },
+        complete: () => {
+          this.spinner.hide();
         }
       })
     } else {
@@ -67,14 +73,11 @@ export class UploadComponent {
 
   handlerSendFileFake(): void {
     if (this.selectedFiles.length == 1) {
-      console.log(this.responseGenericApiRest);
       this.apiRest.fakeRequest().subscribe({
         next: (response) => { 
           
           this.responseApiRest = response;
           this.responseGenericApiRest = response;
-
-          console.log(this.responseGenericApiRest);
         },
         error: (error) => {
           console.error(`Error ao realizar o upload: ${error}`)
