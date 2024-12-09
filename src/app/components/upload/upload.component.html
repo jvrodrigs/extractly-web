@@ -15,9 +15,9 @@
         <input id="dropzone-file" type="file" class="hidden" (change)="handleFileChange($event)" accept=".pdf,.png" />
       </label>
     </div>
-    <div *ngIf="selectedFiles.length != 0">
+    <div *ngIf="selectedFiles !== null">
       <div class="mt-4">
-        <p class="text-sm text-gray-500">Arquivo selecionado: {{selectedFiles[0].name}}</p>
+        <p class="text-sm text-gray-500">Arquivo selecionado: {{selectedFiles?.name}}</p>
         <button class="mt-2 px-4 py-2 bg-gray-800 text-white rounded hover:bg-blue-900 transition-colors" (click)="handlerSendFile()">
           Enviar arquivo
         </button>

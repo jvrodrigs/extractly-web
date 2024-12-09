@@ -11,7 +11,7 @@ import { AwsLambdaService } from 'src/app/shared/services/aws-lambda/aws-lambda.
 })
 export class UploadComponent {
 
-  selectedFiles: File[] = [];
+  selectedFiles: File | null = null;
   maxFileSizeInBytes = 10 * 1024 * 1024; // 10 MB em bytes
   responseApiRest!: IDefaultResponse | null;
 
@@ -25,22 +25,15 @@ export class UploadComponent {
   
   handleFileChange(event: any) {
     this.responseApiRest = null;
-    this.selectedFiles = [];
-    
+        
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files) {
-      const files: File[] = Array.from(inputElement.files);
-      const validFiles = files.filter(file => this.isFileValid(file));
-      
-      // Se todos os arquivos são válidos, adiciona à lista
-      if (validFiles.length > 0) {
-        this.addFiles(validFiles);
-      }
+      const target = event.target as HTMLInputElement;
+      if (target.files && target.files.length > 0) {
+        this.selectedFiles = target.files[0];
+        this.isFileValid(this.selectedFiles!)
+      }      
     }
-  }
-
-  addFiles(files: File[]): void {
-    this.selectedFiles.push(...files);
   }
 
   isFileValid(file: File): boolean {
@@ -52,9 +45,9 @@ export class UploadComponent {
   }
 
   handlerSendFile(): void {
-    if (this.selectedFiles.length == 1) {
+    if (this.selectedFiles != null) {
       this.spinner.show();
-      this.apiRest.uploadFile(this.selectedFiles[0]).subscribe({
+      this.apiRest.uploadFile(this.selectedFiles).subscribe({
         next: (response) => { 
           this.responseApiRest = response;
           this.responseGenericApiRest = response;
@@ -72,7 +65,7 @@ export class UploadComponent {
   }
 
   handlerSendFileFake(): void {
-    if (this.selectedFiles.length == 1) {
+    if (this.selectedFiles != null) {
       this.apiRest.fakeRequest().subscribe({
         next: (response) => { 
           
