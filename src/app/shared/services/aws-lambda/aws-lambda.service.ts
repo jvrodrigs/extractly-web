@@ -20,25 +20,13 @@ export class AwsLambdaService {
   }
 
   uploadFile(file: File): Observable<IDefaultResponse> {
-    // Headers para a requisição
     const headers = new HttpHeaders({
-      'Content-Type': file.type, // Define o Content-Type dinamicamente
-      'filename': file.name     // Nome do arquivo (opcional)
+      'Content-Type': file.type,
+      'filename': file.name     
     });
 
     return this.http.put<IDefaultResponse>(`${environment.URL_API_EXT}upload`, file, { headers });
   }
-
-  // uploadFile(file: File): Observable<IDefaultResponse> {
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-
-  //   const headers = new HttpHeaders({
-  //     filename: file.name
-  //   });
-
-  //   return this.http.post<IDefaultResponse>(`${environment.URL_API_EXT}upload`, formData, { headers });
-  // }
 
   fakeRequest(): Observable<IDefaultGenericResponse<any>> {
     return this.http.get<IDefaultGenericResponse<any>>(`${environment.URL_API_EXT}fake-request`);
